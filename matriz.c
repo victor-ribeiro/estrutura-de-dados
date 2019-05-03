@@ -23,20 +23,11 @@ void liberaMatriz(float** matriz, int linhas){
 }
 
 float concentracao(float** matriz_atual, float** matriz_anterior, int linhas, int colunas){
-    float **dif = alocaMatriz(linhas, colunas);
-    float maior;
+    float maior = 0, dif = 0;
     for(int i = 0; i < linhas; i++){
         for(int j = 0; j < colunas ; j ++){
-            if(matriz_atual[i][j]){
-                dif[i][j] = fabs(matriz_atual[i][j] - matriz_anterior[i][j]) / matriz_atual[i][j];
-                maior = dif[i][j];
-            } 
-            else dif[i][j] = 0;
-        }
-    }
-    for(int i = 0; i < linhas; i++){
-        for(int j = 0; j < colunas ; j ++){
-            if(dif[i][j] > maior) maior = dif[i][j];
+            dif = fabs( matriz_atual[i][j] - matriz_anterior[i][j]);
+            if(dif > 0 && matriz_anterior[i][j] > 0 && matriz_anterior[i][j] != 100) if(maior < dif) maior = dif;
         }
     }
     return maior;
@@ -53,26 +44,29 @@ void imprimirMatriz(float** fMatriz, int linhas, int colunas){
     }
 }
 
-void dispersao(int linhas, int colunas, float** matriz_controle, float** matriz_inicial, float** matriz_destinho){
-    float soma = 0;
+void dispersao(int linhas, int colunas, float** matriz_controle, float** matriz_origem, float** matriz_destino){
+    float soma;
     for(int i = 0; i < linhas; i++){
         for(int j = 0; j < colunas; j++){
             soma=0;
             if( (matriz_controle[i][j]) && matriz_controle[i][j] != 2){
-                soma += j < colunas ? matriz_inicial[i][j+1] : 0;
-                soma += i < (linhas - 1) ? matriz_inicial[i+1][j] : 0;
-                soma += j && (j < colunas) ? matriz_inicial[i][j-1]: 0;
-                soma += i && (i < linhas) ? matriz_inicial[i-1][j]:0;
-                matriz_destinho[i][j] = soma/4.;
+                soma += i < (linhas-1) ? matriz_origem[i+1][j] : 0;
+                soma += j < colunas ? matriz_origem[i][j+1] : 0;
+                soma += j && (j < colunas) ? matriz_origem[i][j-1]: 0;
+                soma += i && (i < linhas) ? matriz_origem[i-1][j]:0;
+                matriz_destino[i][j] = soma/4.;
             }
         }
     }
 }
 
-void copiaMatriz(float** matriz_original, float** matriz_destino, int linhas, int colunas){
-    for(int i = 0; i < linhas; i++){
-        for (int j = 0; j < colunas; j++){
-            matriz_destino[i][j] = matriz_original[i][j];
-        }
-    }
+void copiaMatriz(float **matriz_origem, float **matriz_destino, int linhas, int colunas){
+    float **tmp = matriz_destino;
+    matriz_destino = matriz_origem;
+    matriz_origem = tmp;
+    // for(int i = 0; i < linhas; i++){
+    //     for(int j = 0; j < colunas; j++){
+    //         matriz_origem[i][j] = matriz_destino[i][j];
+    //     }
+    // }
 }

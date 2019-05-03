@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<unistd.h>
 #include"matriz.h"
 #include "arquivo.h"
 
@@ -29,9 +30,10 @@ int main(){
 
     do{
         if(anima){
-            system("clear");
+//            system("clear");
+            printf("iteração: %d\n", iter);
             imprimirMatriz(ilha_aux2, linhas, colunas);
-            sleep(.5);
+            sleep(1);
             printf("\n");
         }
         dispersao(linhas, colunas, ilha, ilha_aux2, ilha_aux1);
@@ -39,7 +41,7 @@ int main(){
         float **tmp = ilha_aux1;
         ilha_aux1 = ilha_aux2;
         ilha_aux2 = tmp;
-//        copiaMatriz(ilha_aux2, ilha_aux1, linhas, colunas);
+        // copiaMatriz(ilha_aux2, ilha_aux1, linhas, colunas);
         iter++;
     } while(dif > TOLERANCIA);
     

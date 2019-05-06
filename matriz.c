@@ -61,7 +61,7 @@ void dispersao(int linhas, int colunas, float** matriz_controle, float** matriz_
 }
 
 void copiaMatriz(float ***matriz_origem, float ***matriz_destino){
-    float ***tmp = matriz_origem;
-    matriz_origem = matriz_destino;
-    matriz_destino = tmp;
+    float **tmp = *matriz_origem;
+    *matriz_origem = *matriz_destino;
+    *matriz_destino = tmp;
 }

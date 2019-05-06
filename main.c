@@ -30,7 +30,7 @@ int main(){
 
     do{
         if(anima){
-            system("clear");
+//            system("clear");
             printf("iteração: %d\n", iter);
             imprimirMatriz(ilha_aux2, linhas, colunas);
             sleep(1);
@@ -38,7 +38,6 @@ int main(){
         }
         dispersao(linhas, colunas, ilha, ilha_aux2, ilha_aux1);
         dif = concentracao(ilha_aux2, ilha_aux1, linhas, colunas);
-        
         copiaMatriz(&ilha_aux2, &ilha_aux1);
         
         iter++;
